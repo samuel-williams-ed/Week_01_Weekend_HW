@@ -29,8 +29,8 @@ def get_pets_by_dict_key_and_searched_val(pet_shop, key_name, searched_value):
 def get_pets_by_breed(pet_shop, breed_name):
     return get_pets_by_dict_key_and_searched_val(pet_shop, "breed", breed_name)
 
-
-# standard answer - replaced by more generic get_pets_by _dict_key_and_searched_val
+# standard answer below - replaced by more generic/reuseable get_pets_by_dict_key_and_searched_val (above)
+# though maybe totally unnessesary
 # def get_pets_by_breed(pet_shop, breed_name):
 #     return_list = []
 #     pets = pet_shop["pets"]
@@ -70,26 +70,22 @@ def customer_can_afford_pet(customer, pet):
     else:
         return False
 
+# created this to 
 def check_pet_exists(pet_shop, pet_object):
     for pet in pet_shop["pets"]:
         if pet == pet_object:
             return True
     return False
 
-
 def sell_pet_to_customer(pet_shop, pet, customer):
     if check_pet_exists(pet_shop, pet) == False:
-        return 
+        print("That pet doesn't exist!")
+        return #if the pet doesn't exist; the selling stops
     if customer_can_afford_pet(customer, pet):
         add_pet_to_customer(customer, pet)
         remove_customer_cash(customer, pet["price"])
         remove_pet_by_name(pet_shop, pet["name"])
         add_or_remove_cash(pet_shop, pet["price"])
         pet_shop["admin"]["pets_sold"] += 1
-
     else:
         print("Customer cannot afford to buy this pet!")
-
-
-
-
