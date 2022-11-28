@@ -20,8 +20,7 @@ def get_stock_count(pet_shop):
 
 def get_pets_by_dict_key_and_searched_val(pet_shop, key_name, searched_value):
     return_list = []
-    pets = pet_shop["pets"]
-    for pet in pets:
+    for pet in pet_shop["pets"]:
         if pet[key_name] == searched_value:
             return_list.append(searched_value)
     return return_list
@@ -31,13 +30,12 @@ def get_pets_by_breed(pet_shop, breed_name):
 
 # standard answer below - replaced by more generic/reuseable get_pets_by_dict_key_and_searched_val (above)
 # though maybe totally unnessesary
-# def get_pets_by_breed(pet_shop, breed_name):
-#     return_list = []
-#     pets = pet_shop["pets"]
-#     for breed in pets:
-#         if breed["breed"] == breed_name:
-#             return_list.append(breed_name)
-#     return return_list
+def get_pets_by_breed(pet_shop, breed_name):
+    return_list = []
+    for breed in pet_shop["pets"]:
+        if breed["breed"] == breed_name:
+            return_list.append(breed_name)
+    return return_list
 
 def find_pet_by_name(pet_shop, pet_name): #needs to return single value not list
     for pet in pet_shop["pets"]:
