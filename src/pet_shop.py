@@ -67,7 +67,7 @@ def customer_can_afford_pet(customer, pet):
         return True
     return False
 
-# created these to refactor sell_pet_to_customer
+# created these to refactor sell_pet_to_customer & some abstraction
 def check_pet_exists(pet_shop, pet_object):
     for pet in pet_shop["pets"]:
         if pet == pet_object:
@@ -86,6 +86,12 @@ def process_transaction(seller, buyer, price):
     add_or_remove_cash(seller, price)
     remove_customer_cash(buyer, price)
 
+def sell_pet_to_customer(pet_shop, pet, customer):
+    if check_pet_exists(pet_shop, pet) and customer_can_afford_pet(customer, pet):
+        process_transaction(pet_shop, customer, pet["price"])
+        move_pet(pet_shop, pet, customer)
+        increase_pets_sold(pet_shop, 1)
+
 # def sell_pet_to_customer(pet_shop, pet, customer):
 
 #     #if the pet doesn't exist; the selling stops
@@ -100,13 +106,6 @@ def process_transaction(seller, buyer, price):
 #         process_transaction(pet_shop, customer, pet["price"])
 #         move_pet(pet_shop, pet, customer)
 #         increase_pets_sold(pet_shop, 1)
-
-def sell_pet_to_customer(pet_shop, pet, customer):
-    if check_pet_exists(pet_shop, pet) and customer_can_afford_pet(customer, pet):
-        process_transaction(pet_shop, customer, pet["price"])
-        move_pet(pet_shop, pet, customer)
-        increase_pets_sold(pet_shop, 1)
-
 
 
 
