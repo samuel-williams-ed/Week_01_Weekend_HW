@@ -76,9 +76,6 @@ def check_pet_exists(pet_shop, pet_object):
             return True
     return False
 
-def update_pet_sales(pet_shop):
-    pet_shop["admin"]["pets_sold"] += 1
-
 def move_pet(pet_shop, pet, customer):
     add_pet_to_customer(customer, pet)
     remove_pet_by_name(pet_shop, pet["name"])
@@ -100,7 +97,7 @@ def sell_pet_to_customer(pet_shop, pet, customer):
     else: 
         move_pet(pet_shop, pet, customer)
         process_pet_shop_transaction(pet_shop, customer, pet["price"])
-        update_pet_sales(pet_shop)
+        increase_pets_sold(pet_shop, 1)
 
 
 
