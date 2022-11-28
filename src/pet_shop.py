@@ -67,25 +67,73 @@ def add_pet_to_customer(customer, pet):
 def customer_can_afford_pet(customer, pet):
     if get_customer_cash(customer) >= pet["price"]:
         return True
-    else:
-        return False
+    return False
 
-# created this to 
+# created these to refactor sell_pet_to_customer
 def check_pet_exists(pet_shop, pet_object):
     for pet in pet_shop["pets"]:
         if pet == pet_object:
             return True
     return False
 
+def update_pet_sales(pet_shop):
+    pet_shop["admin"]["pets_sold"] += 1
+
+def move_pet(pet_shop, pet, customer):
+    add_pet_to_customer(customer, pet)
+    remove_pet_by_name(pet_shop, pet["name"])
+
+def process_pet_shop_transaction(pet_shop, customer, pet_price):
+    add_or_remove_cash(pet_shop, pet_price)
+    remove_customer_cash(customer, pet_price)
+
 def sell_pet_to_customer(pet_shop, pet, customer):
-    if check_pet_exists(pet_shop, pet) == False:
+
+    #if the pet doesn't exist; the selling stops
+    if check_pet_exists(pet_shop, pet) == False: 
         print("That pet doesn't exist!")
-        return #if the pet doesn't exist; the selling stops
-    if customer_can_afford_pet(customer, pet):
-        add_pet_to_customer(customer, pet)
-        remove_customer_cash(customer, pet["price"])
-        remove_pet_by_name(pet_shop, pet["name"])
-        add_or_remove_cash(pet_shop, pet["price"])
-        pet_shop["admin"]["pets_sold"] += 1
-    else:
+        return 
+    #If customer can't afford the pet; the selling stops
+    if customer_can_afford_pet(customer, pet) == False: 
         print("Customer cannot afford to buy this pet!")
+        return
+    else: 
+        move_pet(pet_shop, pet, customer)
+        process_pet_shop_transaction(pet_shop, customer, pet["price"])
+        update_pet_sales(pet_shop)
+
+
+
+
+
+
+
+
+
+
+
+# # testing
+
+
+# def add_or_remove_cash(pet_shop, value):
+
+#     int(pet_shop["cash"] + value)
+
+#     int(pet_shop["cash"] += value)
+
+# def get_some_dict_values(dictionary):
+#     return dictionary["key_1"]["key_2"]
+#     #returns the value stored under the key
+
+# def add_to_dict_value(dictionary, amount):
+#     return (get_some_dict_values(dictionary) + amount)
+#     #this will return a value + 'amount', but won't change the amount stored in the dict
+
+# def add_to_dict_value(dictionary, amount):
+#     get_some_dict_values(dictionary) += amount
+#     #errors becasue you cannot assign a function to a value
+
+# def add_to_dict_value(dictionary, amount):
+#     dictionary["key_1"]["key_2"] += amount
+#     #reassign the dict entry to itself plus amount (+=)
+
