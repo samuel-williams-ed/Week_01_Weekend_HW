@@ -75,7 +75,7 @@ def check_pet_exists(pet_shop, pet_object):
     return False
 
 def move_pet(pet_shop, pet, customer):
-    add_pet_to_customer(customer, pet)
+    add_pet_to_customer(customer, pet)gst
     remove_pet_by_name(pet_shop, pet["name"])
 
 # def process_pet_shop_transaction(pet_shop, customer, pet_price):
