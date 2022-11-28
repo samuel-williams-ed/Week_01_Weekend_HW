@@ -37,7 +37,7 @@ def get_pets_by_breed(pet_shop, breed_name):
             return_list.append(breed_name)
     return return_list
 
-def find_pet_by_name(pet_shop, pet_name): #needs to return single value not list
+def find_pet_by_name(pet_shop, pet_name): #needs to return single value not list. Cannot return list using get_pets_by_dict_key_and_searched_valt
     for pet in pet_shop["pets"]:
         if pet["name"] == pet_name:
             return pet
@@ -78,25 +78,34 @@ def move_pet(pet_shop, pet, customer):
     add_pet_to_customer(customer, pet)
     remove_pet_by_name(pet_shop, pet["name"])
 
-def process_pet_shop_transaction(pet_shop, customer, pet_price):
-    add_or_remove_cash(pet_shop, pet_price)
-    remove_customer_cash(customer, pet_price)
+# def process_pet_shop_transaction(pet_shop, customer, pet_price):
+#     add_or_remove_cash(pet_shop, pet_price)
+#     remove_customer_cash(customer, pet_price)
+
+def process_transaction(seller, buyer, price):
+    add_or_remove_cash(seller, price)
+    remove_customer_cash(buyer, price)
+
+# def sell_pet_to_customer(pet_shop, pet, customer):
+
+#     #if the pet doesn't exist; the selling stops
+#     if check_pet_exists(pet_shop, pet) == False: 
+#         print("That pet doesn't exist!")
+#         return 
+#     #If customer can't afford the pet; the selling stops
+#     if customer_can_afford_pet(customer, pet) == False: 
+#         print("Customer cannot afford to buy this pet!")
+#         return
+#     else: 
+#         process_transaction(pet_shop, customer, pet["price"])
+#         move_pet(pet_shop, pet, customer)
+#         increase_pets_sold(pet_shop, 1)
 
 def sell_pet_to_customer(pet_shop, pet, customer):
-
-    #if the pet doesn't exist; the selling stops
-    if check_pet_exists(pet_shop, pet) == False: 
-        print("That pet doesn't exist!")
-        return 
-    #If customer can't afford the pet; the selling stops
-    if customer_can_afford_pet(customer, pet) == False: 
-        print("Customer cannot afford to buy this pet!")
-        return
-    else: 
+    if check_pet_exists(pet_shop, pet) and customer_can_afford_pet(customer, pet):
+        process_transaction(pet_shop, customer, pet["price"])
         move_pet(pet_shop, pet, customer)
-        process_pet_shop_transaction(pet_shop, customer, pet["price"])
         increase_pets_sold(pet_shop, 1)
-
 
 
 
